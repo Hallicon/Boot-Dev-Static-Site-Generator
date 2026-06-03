@@ -11,9 +11,13 @@ class TestHTMLNode(unittest.TestCase):
         )
 
     def test_initializer(self):
-        print(self.new_node)
+        # Debug here
+        # print(self.new_node)
+        pass
 
     def test_convert_attributes(self):
         attrib_list = self.new_node.props_to_html()
-        print(f"attrib_list test: {attrib_list}")
+
+        # Debug here
+        # print(f"attrib_list test: {attrib_list}")
         self.assertEqual(attrib_list, [f"lang=\"en\"", f"id=\"1\""])

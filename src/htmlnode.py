@@ -24,6 +24,6 @@ class HTMLNode():
         return (
             f"{id(self)} HTMLNode object tag = {self.tag}\n"
             f"{id(self)} HTMLNode object value = {self.value}\n"
-            f"{id(self)} HTMLNode object childer = {self.children}\n"
+            f"{id(self)} HTMLNode object children = {self.children}\n"
             f"{id(self)} HTMLNode object props = {self.props}\n"
         )
