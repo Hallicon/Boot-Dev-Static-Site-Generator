@@ -20,4 +20,8 @@ class TestHTMLNode(unittest.TestCase):
 
         # Debug here
         # print(f"attrib_list test: {attrib_list}")
-        self.assertEqual(attrib_list, [f"lang=\"en\"", f"id=\"1\""])
+        self.assertEqual(attrib_list, f"lang=\"en\" id=\"1\"")
+
+
+if __name__ == "__main__":
+    unittest.main()

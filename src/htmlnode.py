@@ -12,13 +12,16 @@ class HTMLNode():
         if self.props is None:
             return f""
 
+        # Create a list from the attributes
         converted_attributes: list[str] = list(
                 map(
                     lambda key: f"{key}=\"{self.props[key]}\"",
                     self.props
                 )
             )
-        return converted_attributes
+
+        # Return attributes as a joined list
+        return " ".join(converted_attributes)
 
     def __repr__(self):
         return (
@@ -27,3 +30,14 @@ class HTMLNode():
             f"{id(self)} HTMLNode object children = {self.children}\n"
             f"{id(self)} HTMLNode object props = {self.props}\n"
         )
+
+    # Method to compare if two nodes are equal (not comparing children)
+    def __eq__(self, other: HTMLNode) -> bool:
+        if (
+            self.tag == other.tag and
+            self.value == other.value and
+            self.props == other.props
+        ):
+            return True
+        else:
+            return False
