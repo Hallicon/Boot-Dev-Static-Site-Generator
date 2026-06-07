@@ -1,4 +1,7 @@
 from textnode import *
+import re
+
+
 
 
 """
@@ -17,7 +20,7 @@ def split_nodes_delimiter(
         For each TextNode, we want to split the text in the node
         by the delimiter, then from the generated list, we want
         to take each element and form a TextNode from it.
-        Knowing that the delimiter starts at the center of the
+        Knowing that the delimiter starts at the center of the 
         text parts allows us to use the [1]th element of the split
         text.
     """
@@ -42,3 +45,20 @@ def split_nodes_delimiter(
                 )
 
     return output_nodes
+
+
+"""
+    The following two functions are meant to extract links to both
+    images as well as links to websites that are being marked down.
+    They both take strings as inputs
+"""
+
+
+def extract_markdown_images(text: str):
+    extract = re.findall(r"!\[(.*?)\]\((.*?)\)", text)
+    return extract
+
+
+def extract_markdown_links(text: str):
+    extract = re.findall(r"\[(.*?)\]\((https:\/\/.*?)\)", text)
+    return extract

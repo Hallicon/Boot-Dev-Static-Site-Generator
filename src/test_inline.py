@@ -28,6 +28,21 @@ class TestInline(unittest.TestCase):
             self.assertTrue(test_expected[iter] == test_output[iter])
             iter += 1
 
+    def test_extract_markdown(self):
+        test_text = "Hello my name is bob and this is me![bob](file:///)"
+        self.assertEqual(
+            extract_markdown_images(test_text),
+            [("bob", "file:///")]
+        )
+
+    def test_extract_markdown(self):
+        test_text = "my website is [bob](https://www.google.com)"
+        print(extract_markdown_links(test_text))
+        self.assertEqual(
+            extract_markdown_links(test_text),
+            [("bob", "https://www.google.com")]
+        )
+
 
 if __name__ == "main":
     unittest.main()
