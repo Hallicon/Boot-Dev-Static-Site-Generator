@@ -37,11 +37,34 @@ class TestInline(unittest.TestCase):
 
     def test_extract_markdown(self):
         test_text = "my website is [bob](https://www.google.com)"
-        print(extract_markdown_links(test_text))
+        # debugging
+        # print(extract_markdown_links(test_text))
         self.assertEqual(
             extract_markdown_links(test_text),
             [("bob", "https://www.google.com")]
         )
+
+    def test_split_nodes_link(self):
+        node = TextNode(
+            "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
+            TextType.TEXT,
+        )
+        list_of_old_nodes = [node]
+
+        new_nodes = split_nodes_link(list_of_old_nodes)
+        # debugging
+        # print(new_nodes)
+
+    def test_split_nodes_image(self):
+        node = TextNode(
+            "This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)",
+            TextType.TEXT,
+        )
+        list_of_old_nodes = [node]
+
+        new_nodes = split_nodes_image(list_of_old_nodes)
+        # debugging
+        # print(new_nodes)
 
 
 if __name__ == "main":
