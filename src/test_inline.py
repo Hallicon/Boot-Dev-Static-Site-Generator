@@ -57,15 +57,36 @@ class TestInline(unittest.TestCase):
 
     def test_split_nodes_image(self):
         node = TextNode(
-            "This is text with a link ![to boot dev](https://www.boot.dev) and ![to youtube](https://www.youtube.com/@bootdotdev)",
+            "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)",
             TextType.TEXT,
         )
         list_of_old_nodes = [node]
 
         new_nodes = split_nodes_image(list_of_old_nodes)
         # debugging
-        # print(new_nodes)
+        # print(f"output: {new_nodes}")
 
+    def test_text_to_textnodes(self):
+        test_string = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        test_output = text_to_textnodes(test_string)
+
+        expected_output = [
+            TextNode("This is ", TextType.TEXT),
+            TextNode("text", TextType.BOLD_TEXT),
+            TextNode(" with an ", TextType.TEXT),
+            TextNode("italic", TextType.ITALIC_TEXT),
+            TextNode(" word and a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE_TEXT),
+            TextNode(" and an ", TextType.TEXT),
+            TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://boot.dev"),
+        ]
+
+        for index, item in enumerate(expected_output):
+            self.assertTrue(
+                item == test_output[index]
+            )
 
 if __name__ == "main":
     unittest.main()

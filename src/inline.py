@@ -31,22 +31,25 @@ def split_nodes_delimiter(
     output_nodes = []
 
     for node in old_nodes:
-        split_node_text = str.split(node.text, delimiter)
-        for index, text_part in enumerate(split_node_text):
-            if index == 1:
-                output_nodes.append(
-                    TextNode(
-                        text_part,
-                        text_type=text_type
+        if node.text_type == TextType.TEXT:
+            split_node_text = str.split(node.text, delimiter)
+            for index, text_part in enumerate(split_node_text):
+                if index == 1:
+                    output_nodes.append(
+                        TextNode(
+                            text_part,
+                            text_type=text_type
+                        )
                     )
-                )
-            else:
-                output_nodes.append(
-                    TextNode(
-                        text_part,
-                        text_type=TextType.TEXT
+                else:
+                    output_nodes.append(
+                        TextNode(
+                            text_part,
+                            text_type=TextType.TEXT
+                        )
                     )
-                )
+        else:
+            output_nodes.append(node)
 
     return output_nodes
 
@@ -96,80 +99,123 @@ def extract_markdown_links(text: str):
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
     output_nodes = []
     for node in old_nodes:
-        text_split = re.split(
-            r"!\[(.*?)\]\((.*?)\)",
-            node.text
-        )
+        if node.text_type == TextType.TEXT:
+            text_split = re.split(
+                r"!\[(.*?)\]\((.*?)\)",
+                node.text
+            )
 
-        """
-            The individual parts are always going to follow an order
-            first text, then name of link, then the link itself, to
-            cycle through this a modulus can be used.
-        """
-        for index in range(0, len(text_split)-1):
-            mod = index % 3
-            match(mod):
-                case 0:
-                    output_nodes.append(
-                        TextNode(
-                            text_split[index],
-                            TextType.TEXT
+            """
+                The individual parts are always going to follow an order
+                first text, then name of link, then the link itself, to
+                cycle through this a modulus can be used.
+            """
+            for index in range(0, len(text_split)):
+                mod = index % 3
+                match(mod):
+                    case 0:
+                        output_nodes.append(
+                            TextNode(
+                                text_split[index],
+                                TextType.TEXT
+                            )
                         )
-                    )
-                case 1:
-                    output_nodes.append(
-                        TextNode(
-                            text_split[index],      # Name of Image
-                            TextType.IMAGE,
-                            text_split[index + 1]   # Path to Image
+                    case 1:
+                        output_nodes.append(
+                            TextNode(
+                                text_split[index],      # Name of Image
+                                TextType.IMAGE,
+                                text_split[index + 1]   # Path to Image
+                            )
                         )
-                    )
-                case 2:
-                    pass
+                    case 2:
+                        pass
+            else:
+                output_nodes.append(node)
     return output_nodes
 
 
 def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
     output_nodes = []
     for node in old_nodes:
-        text_split = re.split(
-            r"\[(.*?)\]\((https:\/\/.*?)\)",
-            node.text
-        )
-
         """
             The individual parts are always going to follow an order
             first text, then name of link, then the link itself, to
             cycle through this a modulus can be used.
         """
-        for index in range(0, len(text_split)-1):
-            mod = index % 3
-            match(mod):
-                case 0:
-                    output_nodes.append(
-                        TextNode(
-                            text_split[index],
-                            TextType.TEXT
+
+        if node.text_type == TextType.TEXT:
+            text_split = re.split(
+                r"\[(.*?)\]\((https:\/\/.*?)\)",
+                node.text
+            )
+            for index in range(0, len(text_split)):
+                mod = index % 3
+                match(mod):
+                    case 0:
+                        output_nodes.append(
+                            TextNode(
+                                text_split[index],
+                                TextType.TEXT
+                            )
                         )
-                    )
-                case 1:
-                    output_nodes.append(
-                        TextNode(
-                            text_split[index],      # Name of link
-                            TextType.LINK,
-                            text_split[index + 1]   # URL
+                    case 1:
+                        output_nodes.append(
+                            TextNode(
+                                text_split[index],      # Name of link
+                                TextType.LINK,
+                                text_split[index + 1]   # URL
+                            )
                         )
-                    )
-                case 2:
-                    pass
+                    case 2:
+                        pass
+        else:
+            # push the old node onto the stack
+            output_nodes.append(node)
+
     return output_nodes
 
 
 """
     The purpose of this function is to take a long piece of text
-    with markdown and convert it into a list of TextNodes. To achieve
-    this recursion can be used.
+    with markdown and convert it into a list of TextNodes.
 """
 
-def text_to_textnodes(text):
-    pass
+
+def text_to_textnodes(text) -> list[TextNode]:
+    # First we make a TextNode out of the text
+    main_list = [TextNode(text, TextType.TEXT)]
+
+    # Split by images
+    image_main_list = split_nodes_image(main_list)
+
+    # Split by links
+    link_main_list = split_nodes_link(image_main_list)
+
+    """
+        By this point link_main_list will have all the "link" parts split
+        the next task is to get the delimiters settled.
+    """
+
+    # Split by code
+    code_main_list = split_nodes_delimiter(
+        link_main_list,
+        "`",
+        TextType.CODE_TEXT)
+
+    # Split by bold
+    bold_main_list = split_nodes_delimiter(
+        code_main_list,
+        "**",
+        TextType.BOLD_TEXT)
+
+    # Split by italic
+    italic_main_list = split_nodes_delimiter(
+        bold_main_list,
+        "_",
+        TextType.ITALIC_TEXT)
+
+    # For some reason it adds an extra text node at the end
+    italic_main_list.pop()
+
+    return italic_main_list
