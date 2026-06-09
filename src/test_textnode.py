@@ -55,7 +55,7 @@ class TestTextNode(unittest.TestCase):
         )
 
         test_list = [
-            LeafNode("p", "text node content"),
+            LeafNode(None, "text node content"),
             LeafNode("b", "bold node content"),
             LeafNode("i", "italic node content"),
             LeafNode("code", "code node content"),

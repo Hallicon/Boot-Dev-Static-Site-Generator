@@ -33,6 +33,7 @@ def split_nodes_delimiter(
     for node in old_nodes:
         if node.text_type == TextType.TEXT:
             split_node_text = str.split(node.text, delimiter)
+
             for index, text_part in enumerate(split_node_text):
                 if index == 1:
                     output_nodes.append(
@@ -50,7 +51,6 @@ def split_nodes_delimiter(
                     )
         else:
             output_nodes.append(node)
-
     return output_nodes
 
 
@@ -130,8 +130,8 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
                         )
                     case 2:
                         pass
-            else:
-                output_nodes.append(node)
+        else:
+            output_nodes.append(node)
     return output_nodes
 
 
@@ -215,7 +215,5 @@ def text_to_textnodes(text) -> list[TextNode]:
         "_",
         TextType.ITALIC_TEXT)
 
-    # For some reason it adds an extra text node at the end
-    italic_main_list.pop()
 
     return italic_main_list
