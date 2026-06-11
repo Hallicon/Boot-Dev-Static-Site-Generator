@@ -105,7 +105,18 @@ def markdown_to_html_node(markdown):
                 )
 
             case BlockType.HEADING:
-                block = block.removeprefix("# ")
+                # Count the number of '#'
+                splitted = block.split("# ")
+
+                count = 1
+                for hashtag in splitted[0]:
+                    count += 1
+
+                # Remove the '#'
+                hashtags = re.match(r"^#+\s", block)
+
+                block = block.removeprefix(hashtags[0])
+
                 html_noded_blocks = make_list_of_html_nodes(block)
 
                 """
@@ -114,7 +125,7 @@ def markdown_to_html_node(markdown):
                 """
                 the_node.children.append(
                     parentnode.ParentNode(
-                        tag="h1",
+                        tag=f"h{count}",
                         children=html_noded_blocks
                     )
                 )

@@ -104,13 +104,13 @@ the **same** even with inline stuff
 
     def test_heading(self):
         md = """
-# This is a heading
+### This is a heading
 """
         node = markdown_to_html_node(md)
         html = node.to_html()
         self.assertEqual(
             html,
-            "<div><h1>This is a heading</h1></div>",
+            "<div><h3>This is a heading</h3></div>",
         )
 
     def test_ordered_list(self):
