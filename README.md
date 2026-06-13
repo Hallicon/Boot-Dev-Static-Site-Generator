@@ -88,26 +88,16 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Navigate to the root directory of the project. If you have any markdown files, place them as shown in the sample into the `content` folder. Any
+related images should be placed inside of the `static/images` directory. Finally if you have any customized CSS formatting it should be copied and 
+placed into `static/index.css`. Once you have everything ready, you run the following:_
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Run `main.sh`
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   ./main.sh
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+2. Navigate to `http://localhost:8888` on your browser
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
