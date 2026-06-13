@@ -3,7 +3,7 @@
 
 <div align="center">
 
-[![LinkedIn][linkedin-shield]][linkedin-url]
+<h2 align="center">Static Site Generator</h2>
 
 </div>
 
@@ -16,7 +16,9 @@
     <img src="images/bootdev-logo-full-800.png" alt="Logo">
   </a>
 
-  <h2 align="center">Static Site Generator</h2>
+  [![LinkedIn][linkedin-shield]][linkedin-url]
+
+  
 </div>
 
 
