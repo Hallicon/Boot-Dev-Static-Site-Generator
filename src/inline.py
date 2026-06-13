@@ -35,7 +35,7 @@ def split_nodes_delimiter(
             split_node_text = str.split(node.text, delimiter)
 
             for index, text_part in enumerate(split_node_text):
-                if index == 1:
+                if index % 2 != 0:
                     output_nodes.append(
                         TextNode(
                             text_part,
@@ -54,21 +54,7 @@ def split_nodes_delimiter(
     return output_nodes
 
 
-"""
-    The following two functions are meant to extract links to both
-    images as well as links to websites that are being marked down.
-    They both take strings as inputs
-"""
 
-
-def extract_markdown_images(text: str):
-    extract = re.findall(r"!\[(.*?)\]\((.*?)\)", text)
-    return extract
-
-
-def extract_markdown_links(text: str):
-    extract = re.findall(r"\[(.*?)\]\((https:\/\/.*?)\)", text)
-    return extract
 
 
 """
@@ -146,7 +132,7 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
 
         if node.text_type == TextType.TEXT:
             text_split = re.split(
-                r"\[(.*?)\]\((https:\/\/.*?)\)",
+                r"\[(.*?)\]\((.*?)\)",
                 node.text
             )
             for index in range(0, len(text_split)):

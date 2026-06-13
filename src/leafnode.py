@@ -14,7 +14,7 @@ class LeafNode(htmlnode.HTMLNode):
             props_string_list = super().props_to_html()
             return (
                 f"<{self.tag} "
-                f"{props_string_list[0]}>"
+                f"{props_string_list}>"
                 f"{self.value}</{self.tag}>"
             )
 

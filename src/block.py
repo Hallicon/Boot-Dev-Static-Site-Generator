@@ -22,16 +22,45 @@ class BlockType(Enum):
 
 
 def markdown_to_blocks(markdown):
-    split_pieces = markdown.split("\n\n")
-    split_pieces = list(map(lambda part: part.strip(), split_pieces))
-    return split_pieces
+    blocks = []
+    current_block = []
+    inside_code_block = False
+    inside_quote_block = False
+    inside_list_block = False
+
+    for line in markdown.split("\n"):
+        if line.startswith("```"):
+            inside_code_block = not inside_code_block
+            current_block.append(line)
+        elif line.startswith(">"):
+            current_block.append(line)
+            inside_quote_block = True
+        elif line.startswith("-") or re.match(r"^\d+\.", line):
+            current_block.append(line)
+            inside_list_block = True
+        elif line == "" and not inside_code_block and not inside_quote_block and not inside_list_block:
+            # Finish block
+            blocks.append("\n".join(current_block))
+            current_block = []
+            inside_quote_block = False  # add this here
+        else:
+            current_block.append(line)
+            inside_quote_block = False
+            inside_list_block = False
+
+    if current_block:
+        blocks.append("\n".join(current_block))
+
+    blocks = list(filter(lambda b: b.strip() != "", blocks))
+
+    return blocks
 
 
 def block_to_block_type(markdown):
     match(markdown):
         case a if re.match(r"#{1}", a):
             return BlockType.HEADING
-        case b if re.match(r"^```.*```$", b, re.DOTALL) or re.match(r"^`.*`$", b):
+        case b if re.match(r"^```.*```$", b, re.DOTALL):
             return BlockType.CODE
         case c if markdown[0] == ">":
             return BlockType.QUOTE
@@ -144,7 +173,15 @@ def markdown_to_html_node(markdown):
                 )
 
             case BlockType.QUOTE:
-                block = block.removeprefix("> ")
+                block = block.split("\n")
+                block = list(
+                    map(
+                        lambda block_part: block_part.removeprefix("> ").removeprefix(">"),
+                        block
+                    )
+                )
+
+                block = "\n".join(block)
 
                 html_noded_blocks = make_list_of_html_nodes(block)
 
@@ -170,6 +207,7 @@ def markdown_to_html_node(markdown):
                 """
 
                 split_block = block.split("\n")
+                split_block = list(filter(lambda line: line != "", block.split("\n")))
                 removed_prefix = list(
                     map(
                         lambda input_string: input_string.removeprefix("- "),
@@ -192,6 +230,7 @@ def markdown_to_html_node(markdown):
 
             case BlockType.ORDERED_LIST:
                 split_block = block.split("\n")
+                split_block = list(filter(lambda line: line != "", block.split("\n")))
                 removed_prefix = list(
                     map(
                         lambda input_string: input_string.split(". ", 1)[1],
