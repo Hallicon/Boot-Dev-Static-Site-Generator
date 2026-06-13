@@ -65,28 +65,24 @@ as only instructions on what to do were given, but all the code was written by m
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Python][Python]][Python-url]
+[![Python][Python]][Python-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+In order to get started, you can host your own web server using the `main.sh` script, doing so will generate html pages from any markdown folders placed in the
+`content` directory.
 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Python ver 3.14.5
+[![Installation Instructions Here]][Python-install-url]
+  
 
 ### Installation
 
@@ -222,3 +218,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [JQuery-url]: https://jquery.com 
 [Python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://python.org
+[Python-install-url]: https://www.python.org/downloads/
