@@ -106,7 +106,9 @@ placed into `static/index.css`. Once you have everything ready, you run the foll
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-<img src="images/ssimplescreenrecorder.gif" alt="demo">
+<div align="center">
+	<img src="images/ssimplescreenrecorder.gif" alt="demo">
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
