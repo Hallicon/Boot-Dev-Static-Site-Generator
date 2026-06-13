@@ -3,7 +3,7 @@
 
 <div align="center">
 
-<h2 align="center">Static Site Generator</h2>
+<h1 align="center">Static Site Generator</h1>
 
 </div>
 
@@ -41,7 +41,6 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
