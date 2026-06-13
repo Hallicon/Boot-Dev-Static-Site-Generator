@@ -80,9 +80,11 @@ In order to get started, you can host your own web server using the `main.sh` sc
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-Python ver 3.14.5
+* Python ver 3.14.5+
 [Installation Instructions Here][Python-install-url]
-  
+* GNU Bash 
+[Bash Download][Bash]
+
 
 ### Installation
 
@@ -219,3 +221,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [Python]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://python.org
 [Python-install-url]: https://www.python.org/downloads/
+[Bash]: https://ftp.gnu.org/gnu/bash/
