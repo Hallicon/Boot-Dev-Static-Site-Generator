@@ -81,7 +81,7 @@ In order to get started, you can host your own web server using the `main.sh` sc
 
 This is an example of how to list things you need to use the software and how to install them.
 Python ver 3.14.5
-[![Installation Instructions Here]][Python-install-url]
+[Installation Instructions Here][Python-install-url]
   
 
 ### Installation
