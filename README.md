@@ -107,7 +107,7 @@ placed into `static/index.css`. Once you have everything ready, you run the foll
 ## Usage
 
 <div align="center">
-	<img src="images/ssimplescreenrecorder.gif" alt="demo">
+	<img src="images/simplescreenrecorder.gif" alt="demo">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
