@@ -78,9 +78,9 @@ In order to get started, you can host your own web server using the `main.sh` sc
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* Python ver 3.14.5+
+* `Python ver 3.14.5+`:
 [Installation Instructions Here][Python-install-url]
-* GNU Bash 
+* `GNU Bash`: 
 [Bash Download][Bash]
 
 
@@ -114,7 +114,7 @@ placed into `static/index.css`. Once you have everything ready, you run the foll
 <!-- CONTACT -->
 ## Contact
 
-My LinkedIn - [Hallicon](https://linkedin.com/in/luky-romero-7482922b5)
+My LinkedIn: [Hallicon](https://linkedin.com/in/luky-romero-7482922b5)
 
 Project Link: [Static Website Generator](https://github.com/Hallicon/Boot-Dev-Static-Site-Generator)
 
