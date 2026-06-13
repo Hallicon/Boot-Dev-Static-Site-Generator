@@ -1,5 +1,6 @@
 from textnode import *
 import os
+import sys
 import shutil
 import block
 
@@ -74,7 +75,12 @@ def extract_title(first_line: str) -> str:
 """
 
 
-def generate(from_path: str, template_path: str, dest_path: str):
+def generate(
+    basepath: str,
+    from_path: str,
+    template_path: str,
+    dest_path: str
+):
     print(f"""
 Generating page from {from_path} to {dest_path} using {template_path}
 """)
@@ -108,6 +114,16 @@ Generating page from {from_path} to {dest_path} using {template_path}
         converted_markdown
     )
 
+    lines_template = lines_template.replace(
+        'href="/',
+        f'href="{basepath}'
+    )
+
+    lines_template = lines_template.replace(
+        'src="/',
+        f'src="{basepath}'
+    )
+
     # Copy the contents of lines_template into public/index.html
     with open(dest_path, "w") as destination:
         destination.write(lines_template)
@@ -124,6 +140,7 @@ Generating page from {from_path} to {dest_path} using {template_path}
 
 
 def generate_pages_recursively(
+    basepath: str,
     dir_path_content: str,
     template_path: str,
     dest_dir_path: str
@@ -158,6 +175,7 @@ def generate_pages_recursively(
 
             # Recurse through the folder
             generate_pages_recursively(
+                basepath,
                 f"{dir_path_content}{path}",
                 template_path,
                 dest_path
@@ -172,15 +190,23 @@ def generate_pages_recursively(
             # replace .md with .html in the file's path
             dest_path = dest_path.replace(".md", ".html")
             print(f"generating file: {dest_path}")
-            generate(item.path, template_path, dest_path)
+            generate(basepath, item.path, template_path, dest_path)
 
 
 def main():
-    directory_hard_copy("static", "public")
+    basepath = None
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+    if basepath is None:
+        basepath = "/"
+
+    directory_hard_copy("static", "docs")
+
     generate_pages_recursively(
+        basepath,
         "content/",
         "template.html",
-        "public/"
+        "docs/"
     )
 
 
