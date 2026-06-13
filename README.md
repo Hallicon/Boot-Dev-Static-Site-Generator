@@ -8,7 +8,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/Hallicon/Boot-Dev-Static-Site-Generator">
     <img src="images/bootdev-logo-full.png" alt="Logo">
   </a>
 
