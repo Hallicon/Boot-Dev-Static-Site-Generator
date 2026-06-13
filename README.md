@@ -1,15 +1,15 @@
 <a id="readme-top"></a>
 
--->
+<div align="center">
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
+</div>
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/Hallicon/Boot-Dev-Static-Site-Generator">
-    <img src="images/bootdev-logo-full.png" alt="Logo">
+    <img src="images/bootdev-logo-full-800.png" alt="Logo">
   </a>
 
   <h3 align="center">Static Site Generator</h3>
